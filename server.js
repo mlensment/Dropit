@@ -1,7 +1,14 @@
-var app = require('express').createServer();
-
-app.get('/', function(req, res){
-  res.send('hello world');
+var express = require('express'),
+    nowjs = require('now');
+	
+//server creating 
+var app = express.createServer(); 
+app.configure(function(){
+	app.use(express.static(__dirname + '/public'));
 });
-
-app.listen(80);
+app.listen(80); 
+var everyone = nowjs.initialize(app); 
+everyone.now.distributeMessage = function(message){ 
+	console.log(this.now.name)
+	everyone.now.receiveMessage(this.now.name, message);
+}
