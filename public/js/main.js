@@ -1,17 +1,32 @@
 var Main = new function(){
 	var self = this;
 	this.start = function(){
-		var name = prompt('What is your name?');
-		now.name = name;
-		$('button#nupp').live('click', function(){
-			now.distributeMessage($('input').val());
+		if(window.location.hash == ''){
+			var picId = new Date().getTime();
+			window.location.hash = '!/' + picId;
+		}else{
+			this.picLookup();
+		}
+		$(window).bind('hashchange', function(){
+			self.picLookup();
 		});
 	}
 	
-	now.receiveMessage = function(username, message){
-		$('div#messages').append('<span style="font-weight:bold;">' + username + '<span> ' + message + '<br />');
+	this.picLookup = function(){
+		now.picLookup(window.location.hash.match(/\d+$/), function(url){
+			if(url == null){
+				$('div#imageContainer').html('');
+				$('div#addImage').show();
+			}else{
+				$('div#imageContainer').html('<img src="' + url + '" alt="image" />');
+				$('div#addImage').hide();
+			}
+		});
 	}
+
 }
 $(document).ready(function(){
-	Main.start();
+	now.ready(function(){
+		Main.start();
+	});
 });
