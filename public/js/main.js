@@ -2,18 +2,29 @@ var Main = new function(){
 	var self = this;
 	this.start = function(){
 		if(window.location.hash == ''){
-			var picId = new Date().getTime();
-			window.location.hash = '!/' + picId;
+			var imgId = new Date().getTime();
+			window.location.hash = '!/' + imgId;
 		}else{
-			this.picLookup();
+			this.imgLookup();
 		}
+		
 		$(window).bind('hashchange', function(){
-			self.picLookup();
+			self.imgLookup();
+		});
+		
+		$('input[name="inputText"]').bind('keypress', function(e){
+			if(e.which == 13){
+				now.saveImage(window.location.hash.match(/\d+$/)[0], $(this).val(), function(result){
+					if(result){
+						self.imgLookup();
+					}
+				});
+			}
 		});
 	}
 	
-	this.picLookup = function(){
-		now.picLookup(window.location.hash.match(/\d+$/), function(url){
+	this.imgLookup = function(){
+		now.imgLookup(window.location.hash.match(/\d+$/)[0], function(url){
 			if(url == null){
 				$('div#imageContainer').html('');
 				$('div#addImage').show();

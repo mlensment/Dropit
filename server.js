@@ -9,14 +9,34 @@ app.configure(function(){
 app.listen(80); 
 
 var everyone = nowjs.initialize(app); 
-everyone.now.picLookup = function(id, callback){
-	var db = JSON.parse(fs.readFileSync('db/db.json'));
-	for(var i in db.picture){
-		console.log(db.picture[i].id)
-		 if(db.picture[i].id == id){
-			callback(db.picture[i].url);
-			return;
+everyone.now.imgLookup = function(id, callback){
+	fs.readFile('db/db.json', function(err, data){
+		if(err)
+			throw err;
+		var db = JSON.parse(data);
+		for(var i in db.picture){
+			if(db.picture[i].id == id){
+				callback(db.picture[i].url);
+				return;
+			}
 		}
-	}
-	callback(null);
+		callback(null);
+	});
+}
+
+everyone.now.saveImage = function(id, url, callback){
+	fs.readFile('db/db.json', function(err, data){
+		if(err)
+			throw err;
+		var db = JSON.parse(data);
+		db.picture.push({id: id, url: url});
+		var newDb = JSON.stringify(db);
+		fs.writeFile('db/db.json', newDb, encoding='utf8', function(err){
+			if(err){
+				callback(false);
+				throw err;
+			}
+			callback(true);
+		});
+	});
 }
