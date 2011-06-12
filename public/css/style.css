@@ -1,0 +1,38 @@
+body{
+	font-family: Arial, Verdana;
+	font-size: 14px;
+}
+
+#container{
+  width: 960px;
+  margin: auto;
+}
+
+#menu{
+  margin-bottom: 10px;
+}
+
+#input div{
+  width: 90%;
+}
+
+#input textarea{
+  width: 99%;
+  height: 200px;
+  font-family: Arial;
+  font-size: 13px;
+}
+
+#notice {
+  text-align: center;
+  padding: 50px 0 0 0;
+  height: 80px;
+}
+
+.noticeError {
+  color: red;
+}
+
+.noticeSuccess {
+  color: green;
+}  

@@ -1,0 +1,34 @@
+!!! html
+head
+  link(rel='stylesheet', href='css/style.css')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js')
+  script(src='http://turnkey/nowjs/now.js')
+  script(src='js/sammy-latest.min.js')
+  script(src='js/sha.js')
+  script(src='js/main.js')
+  meta(http-equiv='Content-Type', content='text/html;charset=utf-8')
+  title My little NodeJS playground
+body
+  #container
+    #notice
+      #noticeText(style='display: none;')
+    #menu
+      a(href='javascript: void(0);', id='toggleInput') Lisa uus kirje
+      \ |
+      a(href='#!') Esilehele
+    #input(style='display: none;')
+      form(method='post', action='#!/inputText', id='inputText')
+        table(style='width: 90%')
+          tr
+            td(style='width: 60px;') 
+              | Pealkiri:
+            td
+              input(type='text', name='titleText')
+          tr
+            td(valign='top')
+              | Sisu:
+            td
+              textarea(cols='10', rows='5', name='inputText')
+        div(style='text-align: right;')
+          button(style='margin-right: 2px;') Salvesta
+    #main
