@@ -1,4 +1,4 @@
-var Dropit = function(){
+﻿var Dropit = function(){
   this.listen();
   this.app();
 };
